@@ -6,9 +6,9 @@ import { verifyToken } from "../utils/jwt";
 import { CustomRequest } from "../types/custom";
 
 interface JwtPayload {
-  id: string;
+  idUser: string;
   role: string;
-  idBrandMaster: string;
+  idBrandMaster: number;
 }
 
 export const authUser = (
@@ -26,7 +26,7 @@ export const authUser = (
 
   const payload = verifyToken(token) as JwtPayload;
 
-  if (!payload || !payload.id) {
+  if (!payload || !payload.idUser) {
     throw new AppError(ERROR_MESSAGE.UNAUTHORIZED, STATUS_CODE.UNAUTHORIZED);
   }
   
