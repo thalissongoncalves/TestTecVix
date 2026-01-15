@@ -1,5 +1,6 @@
 import { prisma } from "../database/client";
 import { TQuery } from "../types/validations/Queries/queryListAll";
+import { TUserCreated } from "../types/validations/User/createUser";
 
 export class UserModel {
   async totalCount(query: TQuery, isIncludeDeleted?: boolean) {
@@ -37,5 +38,20 @@ export class UserModel {
 
     const totalCount = await this.totalCount(query, isIncludeDeleted);
     return { totalCount, result: users };
+  }
+
+  async createNewUser(data: TUserCreated) {
+    return prisma.user.create({ 
+      data,
+      select: {
+        idUser: true,
+        username: true,
+        email: true,
+        role: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    });
   }
 }
