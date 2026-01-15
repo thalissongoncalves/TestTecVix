@@ -11,4 +11,13 @@ authRoutes.post(`${BASE_PATH}/login`, async (req, res) => {
   await authController.login(req, res);
 });
 
+authRoutes.post(
+  `${BASE_PATH}/register`,
+  // authUser,
+  // isManagerOrIsAdmin,
+  async (req, res) => {
+    await authController.createNewUser(req, res);
+  },
+);
+
 export { authRoutes };

@@ -20,15 +20,6 @@ userRoutes.get(
   },
 );
 
-userRoutes.post(
-  `${BASE_PATH}`,
-  // authUser,
-  // isManagerOrIsAdmin,
-  async (req, res) => {
-    await userController.createNewUser(req, res);
-  },
-);
-
 userRoutes.get(
   `${BASE_PATH}/:id`,
   // authUser
