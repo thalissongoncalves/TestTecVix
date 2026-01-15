@@ -220,6 +220,17 @@
             "null"
           ]
         },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "LOCAL",
+            "CLOUD",
+            "EDGE"
+          ]
+        },
         "vCPU": {
           "type": "integer"
         },

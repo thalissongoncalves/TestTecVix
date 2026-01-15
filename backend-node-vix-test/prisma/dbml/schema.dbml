@@ -41,6 +41,7 @@ Table vM {
   idVM Int [pk, increment]
   vmName String
   pass String
+  location ETaskLocation
   vCPU Int [not null]
   ram Int [not null]
   disk Int [not null]
@@ -68,6 +69,12 @@ Table user {
   updatedAt DateTime [default: `now()`]
   deletedAt DateTime
   brandMaster brandMaster
+}
+
+Enum ETaskLocation {
+  LOCAL
+  CLOUD
+  EDGE
 }
 
 Enum EVMStatus {

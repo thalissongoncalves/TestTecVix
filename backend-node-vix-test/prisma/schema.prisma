@@ -16,6 +16,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ETaskLocation {
+  LOCAL
+  CLOUD
+  EDGE
+}
+
 model brandMaster {
   idBrandMaster Int       @id @default(autoincrement())
   brandName     String?
@@ -55,6 +61,7 @@ model vM {
   idVM          Int          @id @default(autoincrement())
   vmName        String?
   pass          String?      // senha da VM (hash)
+  location      ETaskLocation?      // localização da VM
   vCPU          Int
   ram           Int
   disk          Int
