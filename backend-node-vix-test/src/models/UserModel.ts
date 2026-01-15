@@ -66,4 +66,22 @@ export class UserModel {
       },
     });
   }
+
+  async getById(idUser: string) {
+    return prisma.user.findFirst({
+      where: {
+        idUser,
+        deletedAt: null
+      },
+      select: {
+        idUser: true,
+        username: true,
+        email: true,
+        role: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    });
+  }
 }
