@@ -29,4 +29,12 @@ userRoutes.post(
   },
 );
 
+userRoutes.get(
+  `${BASE_PATH}/:id`,
+  // authUser
+  async (req, res) => {
+    await userController.getUserById(req, res);
+  },
+);
+
 export { userRoutes };

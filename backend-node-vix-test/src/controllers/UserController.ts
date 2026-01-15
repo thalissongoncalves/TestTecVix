@@ -21,4 +21,17 @@ export class UserController {
     );
     return res.status(STATUS_CODE.CREATED).json(result);
   }
+
+  async getUserById(req: CustomRequest<unknown>, res: Response) {
+    const { id } = req.params;
+
+    if (typeof id !== "string") {
+      return res
+        .status(STATUS_CODE.BAD_REQUEST)
+        .json({ message: "Invalid user id" });
+    }
+
+    const result = await this.userService.getUserById(id);
+    return res.status(STATUS_CODE.OK).json(result);
+  }
 }

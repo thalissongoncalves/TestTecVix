@@ -1,8 +1,13 @@
 import { querySchema } from "../types/validations/Queries/queryListAll";
 import { UserModel } from "../models/UserModel";
-import { TUserCreated, userCreatedSchema } from "../types/validations/User/createUser";
+import {
+  TUserCreated,
+  userCreatedSchema,
+} from "../types/validations/User/createUser";
 import { user } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { STATUS_CODE } from "../constants/statusCode";
+import { AppError } from "../errors/AppError";
 
 export class UserService {
   constructor() {}
@@ -16,7 +21,7 @@ export class UserService {
   async createNewUser(data: TUserCreated, user: user) {
     // Valida os dados
     const validData = userCreatedSchema.parse(data);
-    
+
     // Gera o hash da senha
     const hashedPassword = await bcrypt.hash(validData.password, 10);
 
@@ -31,5 +36,15 @@ export class UserService {
     const newUser = await this.userModel.createNewUser(userData);
 
     return newUser;
+  }
+
+  async getUserById(idUser: string) {
+    const getUser = await this.userModel.getById(idUser);
+
+    if (!getUser) {
+      throw new AppError("User not found", STATUS_CODE.NOT_FOUND);
+    }
+
+    return getUser;
   }
 }
