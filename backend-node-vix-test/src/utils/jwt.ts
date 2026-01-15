@@ -6,9 +6,9 @@ import { STATUS_CODE } from "../constants/statusCode";
 const secret = process.env.JWT_SECRET as string;
 
 export interface IPayload {
-  id: string;
+  idUser: string;
   role: string;
-  idBrandMaster: string;
+  idBrandMaster: number | null;
 }
 
 export const genToken = (payload: IPayload) => {

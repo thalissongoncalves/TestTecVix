@@ -8,5 +8,6 @@ export const ROOT_PATH = {
   BRANDMASTER: "/brand-master",
   VM: "/vm",
   UPLOADS: "/uploads",
-  USER: "/users"
+  USER: "/users",
+  AUTH: "/auth",
 };

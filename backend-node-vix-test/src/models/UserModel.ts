@@ -84,4 +84,13 @@ export class UserModel {
       }
     });
   }
+
+  async findEmail(email: string) {
+    return prisma.user.findFirst({
+      where: {
+        email,
+        deletedAt: null
+      }
+    });
+  }
 }

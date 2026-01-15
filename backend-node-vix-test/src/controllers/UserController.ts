@@ -5,7 +5,6 @@ import { STATUS_CODE } from "../constants/statusCode";
 import { UserService } from "../services/UserService";
 
 export class UserController {
-  constructor() {}
   private userService = new UserService();
 
   async listAll(req: CustomRequest<unknown>, res: Response) {

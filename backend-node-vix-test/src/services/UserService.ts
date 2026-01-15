@@ -8,6 +8,7 @@ import { user } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { STATUS_CODE } from "../constants/statusCode";
 import { AppError } from "../errors/AppError";
+import { genToken } from "../utils/jwt";
 
 export class UserService {
   constructor() {}
@@ -46,5 +47,36 @@ export class UserService {
     }
 
     return getUser;
+  }
+
+  async login(email: string, password: string) {
+    const user = await this.userModel.findEmail(email);
+
+    if (!user) {
+      throw new AppError("Invalid credentials", STATUS_CODE.UNAUTHORIZED);
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      throw new AppError("Invalid credentials", STATUS_CODE.UNAUTHORIZED);
+    }
+
+    const token = genToken({
+      idUser: user.idUser,
+      role: user.role,
+      idBrandMaster: user.idBrandMaster,
+    });
+
+    return {
+      token,
+      user: {
+        idUser: user.idUser,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+      },
+    };
   }
 }
