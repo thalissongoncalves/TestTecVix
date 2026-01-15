@@ -23,25 +23,37 @@ export class UserModel {
         [field]: direction,
       })) || [];
 
-    const users = await prisma.user.findMany({
-      where: {
-        ...(!isIncludeDeleted && { deletedAt: null }),
-        isActive: query.isActive,
-        username: {
-          contains: query.search,
-        },
-      },
-      take: limit || undefined,
-      skip,
-      ...(orderBy.length ? { orderBy } : { orderBy: [{ updatedAt: "desc" }] }),
-    });
-
     const totalCount = await this.totalCount(query, isIncludeDeleted);
-    return { totalCount, result: users };
+    return {
+      totalCount,
+      result: await prisma.user.findMany({
+        where: {
+          ...(!isIncludeDeleted && { deletedAt: null }),
+          isActive: query.isActive,
+          username: {
+            contains: query.search,
+          },
+        },
+        take: limit || undefined,
+        skip,
+        ...(orderBy.length
+          ? { orderBy }
+          : { orderBy: [{ updatedAt: "desc" }] }),
+        select: {
+          idUser: true,
+          username: true,
+          email: true,
+          role: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      }),
+    };
   }
 
   async createNewUser(data: TUserCreated) {
-    return prisma.user.create({ 
+    return prisma.user.create({
       data,
       select: {
         idUser: true,
@@ -51,7 +63,7 @@ export class UserModel {
         isActive: true,
         createdAt: true,
         updatedAt: true,
-      }
+      },
     });
   }
 }
