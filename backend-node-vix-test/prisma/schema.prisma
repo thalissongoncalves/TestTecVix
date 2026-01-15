@@ -65,7 +65,7 @@ model vM {
   vCPU          Int
   ram           Int
   disk          Int
-  hasBackup     Boolean?     @default(false)
+  hasBackup     Boolean      @default(false)
   idBrandMaster Int?
   status        EVMStatus?
   createdAt     DateTime?    @default(now()) @db.DateTime(0)

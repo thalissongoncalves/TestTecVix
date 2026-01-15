@@ -241,10 +241,7 @@
           "type": "integer"
         },
         "hasBackup": {
-          "type": [
-            "boolean",
-            "null"
-          ],
+          "type": "boolean",
           "default": false
         },
         "status": {
