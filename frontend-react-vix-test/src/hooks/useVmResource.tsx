@@ -99,6 +99,21 @@ export const useVmResource = () => {
     },
   ];
 
+  const osOptions = [
+    {
+      value: "ubuntu_22_04",
+      label: "Ubuntu 22.04",
+    },
+    {
+      value: "ubuntu_20_04",
+      label: "Ubuntu 20.04",
+    },
+    {
+      value: "debian_12",
+      label: "Debian 12",
+    },
+  ];
+
   const validPassword = (vmPassword: string) => {
     const isValid = validatePassword(vmPassword, MIN_PASS_SIZE);
     if (isValid) return true;
@@ -333,7 +348,7 @@ export const useVmResource = () => {
 
     if (response.error) {
       toast.error(response.message);
-      return null
+      return null;
     }
 
     return response.data;
@@ -348,7 +363,7 @@ export const useVmResource = () => {
 
     if (response.error) {
       toast.error(response.message);
-      return null
+      return null;
     }
 
     return response.data;
@@ -376,5 +391,6 @@ export const useVmResource = () => {
     updateVMStatus,
     startVM,
     pauseVM,
+    osOptions,
   };
 };
