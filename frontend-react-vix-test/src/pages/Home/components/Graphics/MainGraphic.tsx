@@ -15,9 +15,18 @@ import { useZTheme } from "../../../../stores/useZTheme";
 import { useTranslation } from "react-i18next";
 import { useZGlobalVar } from "../../../../stores/useZGlobalVar";
 import { IFormatData } from "../../../../types/socketType";
+const cpuMockData: IFormatData[] = [
+  { time: "10:00", value: 25 },
+  { time: "10:01", value: 32 },
+  { time: "10:02", value: 48 },
+  { time: "10:03", value: 55 },
+  { time: "10:04", value: 68 },
+  { time: "10:05", value: 72 },
+  { time: "10:06", value: 80 },
+]
 
 export const MainGraphic = () => {
-  const [chartData] = useState<IFormatData[]>([]);
+  const [chartData] = useState<IFormatData[]>(cpuMockData);
   const { theme, mode } = useZTheme();
   const { t } = useTranslation();
 
