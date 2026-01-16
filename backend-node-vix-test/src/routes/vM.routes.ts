@@ -35,8 +35,9 @@ vMRoutes.get(
 
 // ========= POSTs =========
 vMRoutes.post(
-  BASE_PATH, // authUser,
-  // isManagerOrIsAdmin,
+  BASE_PATH, 
+  authUser,
+  isManagerOrIsAdmin,
   async (req, res) => {
     await vMController.createVM(req, res);
   },

@@ -45,6 +45,7 @@ Table vM {
   vCPU Int [not null]
   ram Int [not null]
   disk Int [not null]
+  network EVMNetwork
   hasBackup Boolean [not null, default: false]
   idBrandMaster Int
   status EVMStatus
@@ -72,9 +73,14 @@ Table user {
 }
 
 Enum ETaskLocation {
-  LOCAL
-  CLOUD
-  EDGE
+  USA_MIAMI
+  BRA_SAO_PAULO
+}
+
+Enum EVMNetwork {
+  public
+  private
+  public_private
 }
 
 Enum EVMStatus {

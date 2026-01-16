@@ -226,9 +226,8 @@
             "null"
           ],
           "enum": [
-            "LOCAL",
-            "CLOUD",
-            "EDGE"
+            "USA_MIAMI",
+            "BRA_SAO_PAULO"
           ]
         },
         "vCPU": {
@@ -239,6 +238,17 @@
         },
         "disk": {
           "type": "integer"
+        },
+        "network": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "public",
+            "private",
+            "public_private"
+          ]
         },
         "hasBackup": {
           "type": "boolean",

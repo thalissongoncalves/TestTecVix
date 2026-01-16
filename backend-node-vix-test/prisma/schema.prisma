@@ -17,9 +17,8 @@ datasource db {
 }
 
 enum ETaskLocation {
-  LOCAL
-  CLOUD
-  EDGE
+  USA_MIAMI
+  BRA_SAO_PAULO
 }
 
 model brandMaster {
@@ -65,6 +64,7 @@ model vM {
   vCPU          Int
   ram           Int
   disk          Int
+  network       EVMNetwork?      
   hasBackup     Boolean      @default(false)
   idBrandMaster Int?
   status        EVMStatus?
@@ -94,6 +94,12 @@ model user {
   brandMaster brandMaster? @relation(fields: [idBrandMaster], references: [idBrandMaster])
 
   @@index([idBrandMaster], map: "user_idBrandMaster_fkey")
+}
+
+enum EVMNetwork {
+  public
+  private
+  public_private
 }
 
 enum EVMStatus {
