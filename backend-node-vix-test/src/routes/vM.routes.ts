@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { VMController } from "../controllers/VMController";
 import { API_VERSION, ROOT_PATH } from "../constants/basePathRoutes";
+import { authUser } from "../auth/authUser";
+import { isManagerOrIsAdmin } from "../auth/isManagerOrIsAdmin";
 // import { isManagerOrIsAdmin } from "../authUser/isManagerOrIsAdmin";
 // import { isAdmin } from "../authUser/isAdmin";
 // import { authUser } from "../auth/authUser";
@@ -62,3 +64,13 @@ vMRoutes.delete(
 );
 
 export { vMRoutes };
+
+// ======== PATCHs ========
+vMRoutes.patch(
+  `${BASE_PATH}/:idVM/start`,
+  authUser,
+  isManagerOrIsAdmin,
+  async (req, res) => {
+    await vMController.startVM(req, res);
+  },
+);

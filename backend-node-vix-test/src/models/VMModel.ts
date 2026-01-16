@@ -3,6 +3,7 @@ import { TVMCreate } from "../types/validations/VM/createVM";
 import { TVMUpdate } from "../types/validations/VM/updateVM";
 import { IListAllVM } from "../types/IListAll";
 import moment from "moment";
+import { EVMStatus } from "@prisma/client";
 
 export class VMModel {
   async getById(idVM: number) {
@@ -90,6 +91,16 @@ export class VMModel {
     return await prisma.vM.update({
       where: { idVM },
       data: { updatedAt: new Date(), deletedAt: new Date() },
+    });
+  }
+
+  async startVM(idVM: number) {
+    return await prisma.vM.update({
+      where: { idVM },
+      data: {
+        status: "RUNNING",
+        updatedAt: new Date(),
+      },
     });
   }
 }

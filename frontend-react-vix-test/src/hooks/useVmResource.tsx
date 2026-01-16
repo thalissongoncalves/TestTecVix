@@ -324,6 +324,21 @@ export const useVmResource = () => {
     return Boolean(response.data);
   };
 
+  const startVM = async (idVM: number) => {
+    const auth = await getAuth();
+    const response = await api.patch({
+      url: `/vm/${idVM}/start`,
+      auth,
+    });
+
+    if (response.error) {
+      toast.error(response.message);
+      return null
+    }
+
+    return response.data;
+  };
+
   return {
     createVm,
     updateNameVm,
@@ -344,5 +359,6 @@ export const useVmResource = () => {
     getOSDeletedLabel,
     monitoringVMStatus,
     updateVMStatus,
+    startVM,
   };
 };
