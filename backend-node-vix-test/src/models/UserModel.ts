@@ -93,6 +93,13 @@ export class UserModel {
     });
   }
 
+  async deleteUser(idUser: string) {
+    return await prisma.user.update({
+      where: { idUser },
+      data: { updatedAt: new Date(), deletedAt: new Date(), isActive: false },
+    });
+  }
+
   async findEmail(email: string) {
     return prisma.user.findFirst({
       where: {

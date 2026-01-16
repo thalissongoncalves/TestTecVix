@@ -63,6 +63,15 @@ export class UserService {
     return updatedUser;
   }
 
+  async deleteUser(idUser: string) {
+    const oldUser = await this.getUserById(idUser);
+    if (!oldUser) {
+      throw new AppError(ERROR_MESSAGE.NOT_FOUND, STATUS_CODE.NOT_FOUND);
+    }
+    const deletedUser = await this.userModel.deleteUser(idUser);
+    return deletedUser;
+  }
+
   async login(email: string, password: string) {
     const user = await this.userModel.findEmail(email);
 
