@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { IGenericOptionsTyped, TOptions } from "../types/FormType";
 import { MIN_PASS_SIZE } from "../configs/contants";
 import { genStrongPass } from "../utils/genStrongPass";
-import { ENetworkType } from "../types/VMTypes";
+import { ELocationType, ENetworkType } from "../types/VMTypes";
 
 export interface IVMForm {
   vmSO: TOptions | null;
@@ -12,7 +12,7 @@ export interface IVMForm {
   vmvCpu: number;
   vmMemory: number;
   vmDisk: number;
-  vmLocalization: TOptions | null;
+  vmLocalization: IGenericOptionsTyped<ELocationType> | null;
   hasBackup: boolean;
   vmNetwork: IGenericOptionsTyped<ENetworkType> | null;
   openConfirm: boolean;
@@ -51,7 +51,7 @@ interface IVMFormState extends IVMForm {
   setVmvCpu(vmvCpu: number): void;
   setVmMemory(vmMemory: number): void;
   setVmDisk(vmDisk: number): void;
-  setVmLocalization(vmLocalization: TOptions | null): void;
+  setVmLocalization(vmLocalization: IGenericOptionsTyped<ELocationType> | null): void;
   setHasBackup(hasBackup: boolean): void;
   setVmNetwork(vmNetwork: IGenericOptionsTyped<ENetworkType> | null): void;
   setOpenConfirm(openConfirm: boolean): void;

@@ -99,15 +99,15 @@ export const FormVM = () => {
     if (!isValidPass) return;
 
     await createVm({
-      ...vm,
-      networkType: vmNetwork?.value,
-      vmName: vmName,
+      vmName,
+      pass: vmPassword,
+      location: vmLocalization!.value,
+      os: String(vmSO?.value),
       vCPU: vmvCpu,
       ram: vmMemory,
       disk: vmDisk,
-      hasBackup: hasBackup,
-      os: String(vmSO?.value) || "",
-      pass: vmPassword,
+      hasBackup,
+      networkType: vmNetwork?.value,
     });
   };
 

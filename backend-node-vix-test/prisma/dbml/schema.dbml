@@ -45,7 +45,7 @@ Table vM {
   vCPU Int [not null]
   ram Int [not null]
   disk Int [not null]
-  network EVMNetwork
+  networkType EVMNetworkType
   hasBackup Boolean [not null, default: false]
   idBrandMaster Int
   status EVMStatus
@@ -77,10 +77,10 @@ Enum ETaskLocation {
   BRA_SAO_PAULO
 }
 
-Enum EVMNetwork {
+Enum EVMNetworkType {
   public
-  private
   public_private
+  private
 }
 
 Enum EVMStatus {

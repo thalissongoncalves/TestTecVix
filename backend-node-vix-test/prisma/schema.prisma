@@ -64,7 +64,7 @@ model vM {
   vCPU          Int
   ram           Int
   disk          Int
-  network       EVMNetwork?      
+  networkType   EVMNetworkType?
   hasBackup     Boolean      @default(false)
   idBrandMaster Int?
   status        EVMStatus?
@@ -96,10 +96,10 @@ model user {
   @@index([idBrandMaster], map: "user_idBrandMaster_fkey")
 }
 
-enum EVMNetwork {
+enum EVMNetworkType {
   public
-  private
   public_private
+  private
 }
 
 enum EVMStatus {

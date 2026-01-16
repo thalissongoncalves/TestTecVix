@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const EVMLocation = z.enum(["USA_MIAMI", "BRA_SAO_PAULO"]);
 const EVMStatus = z.enum(["RUNNING", "STOPPED", "PAUSED"]);
-const EVMNetwork = z.enum(["public", "private", "public_private"]);
+const EVMNetwork = z.enum(["public", "public_private", "private" ]);
 // Password validation regex
 export const passwordRegex = {
   numbers: /(?=.*\d.*\d)/,
@@ -34,7 +34,7 @@ export const vMCreatedSchema = z.object({
   vCPU: z.number().min(1, "vCPU must be at least 1"),
   ram: z.number().min(1, "RAM must be at least 1 GB"),
   disk: z.number().min(20, "Disk must be at least 20 GBs"),
-  network: EVMNetwork.optional().default("public"),
+  networkType: EVMNetwork.optional().default("public"),
   hasBackup: z.boolean().optional().default(false),
   status: EVMStatus.optional(),
 });

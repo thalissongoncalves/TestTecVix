@@ -239,15 +239,15 @@
         "disk": {
           "type": "integer"
         },
-        "network": {
+        "networkType": {
           "type": [
             "string",
             "null"
           ],
           "enum": [
             "public",
-            "private",
-            "public_private"
+            "public_private",
+            "private"
           ]
         },
         "hasBackup": {

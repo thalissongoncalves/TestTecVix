@@ -16,8 +16,8 @@ import {
 import { EOS } from "../stores/useZVMSugestion";
 
 enum ETaskLocation {
-  bre_barueri = "bre_barueri",
-  usa_miami = "usa_miami",
+  USA_MIAMI = "USA_MIAMI",
+  BRA_SAO_PAULO = "BRA_SAO_PAULO",
 }
 
 export const useVmResource = () => {
@@ -75,11 +75,11 @@ export const useVmResource = () => {
 
   const localizationOptions: { value: ETaskLocation; label: string }[] = [
     {
-      value: ETaskLocation.usa_miami,
+      value: ETaskLocation.USA_MIAMI,
       label: t("createVm.usaMiami"),
     },
     {
-      value: ETaskLocation.bre_barueri,
+      value: ETaskLocation.BRA_SAO_PAULO,
       label: t("createVm.brSaoPaulo"),
     },
   ];
@@ -311,7 +311,7 @@ export const useVmResource = () => {
     networkTypeValue,
   }: {
     networkTypeLabel?: string;
-    networkTypeValue?: number;
+    networkTypeValue?: string;
   }): { value: ENetworkType; label: string } => {
     if (networkTypeLabel)
       return (
