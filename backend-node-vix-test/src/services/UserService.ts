@@ -9,6 +9,8 @@ import bcrypt from "bcrypt";
 import { STATUS_CODE } from "../constants/statusCode";
 import { AppError } from "../errors/AppError";
 import { genToken } from "../utils/jwt";
+import { userUpdatedSchema } from "../types/validations/User/updateUser";
+import { ERROR_MESSAGE } from "../constants/erroMessages";
 
 export class UserService {
   constructor() {}
@@ -47,6 +49,18 @@ export class UserService {
     }
 
     return getUser;
+  }
+
+  async updateUser(idUser: string, data: unknown) {
+    const validateDataSchema = userUpdatedSchema.parse(data);
+    const oldUser = await this.getUserById(idUser);
+
+    if (!oldUser) {
+      throw new AppError(ERROR_MESSAGE.NOT_FOUND, STATUS_CODE.NOT_FOUND);
+    }
+
+    const updatedUser = await this.userModel.updateUser(idUser, validateDataSchema);
+    return updatedUser;
   }
 
   async login(email: string, password: string) {

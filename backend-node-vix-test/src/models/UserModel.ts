@@ -1,6 +1,7 @@
 import { prisma } from "../database/client";
 import { TQuery } from "../types/validations/Queries/queryListAll";
 import { TUserCreated } from "../types/validations/User/createUser";
+import { TUserUpdated } from "../types/validations/User/updateUser";
 
 export class UserModel {
   async totalCount(query: TQuery, isIncludeDeleted?: boolean) {
@@ -71,7 +72,7 @@ export class UserModel {
     return prisma.user.findFirst({
       where: {
         idUser,
-        deletedAt: null
+        deletedAt: null,
       },
       select: {
         idUser: true,
@@ -81,7 +82,14 @@ export class UserModel {
         isActive: true,
         createdAt: true,
         updatedAt: true,
-      }
+      },
+    });
+  }
+
+  async updateUser(idUser: string, data: TUserUpdated) {
+    return await prisma.user.update({
+      where: { idUser },
+      data: { ...data, updatedAt: new Date() },
     });
   }
 
@@ -89,8 +97,8 @@ export class UserModel {
     return prisma.user.findFirst({
       where: {
         email,
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
   }
 }
