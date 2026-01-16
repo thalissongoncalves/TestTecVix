@@ -81,6 +81,7 @@ export const VmCard = ({
     isLoading,
     getOS,
     startVM,
+    pauseVM,
   } = useVmResource();
 
   const getVMById = async () => {
@@ -111,6 +112,10 @@ export const VmCard = ({
     if (statusState !== preStatusState) {
       if (statusState === "RUNNING") {
         await startVM(vmId);
+      }
+
+      if (statusState === "PAUSED") {
+        await pauseVM(vmId);
       }
 
       setPreStatusState(statusState);

@@ -66,4 +66,16 @@ export class VMService {
     const startVm = await this.vMModel.startVM(idVM);
     return startVm;
   }
+
+  async pauseVM(idVM: number) {
+    const oldVM = await this.getById(idVM);
+    if (!oldVM) {
+      throw new AppError(ERROR_MESSAGE.NOT_FOUND, STATUS_CODE.NOT_FOUND);
+    }
+    if (oldVM.status === "PAUSED") {
+      throw new AppError("VM is already paused", STATUS_CODE.BAD_REQUEST);
+    }
+    const pauseVM = await this.vMModel.pauseVM(idVM);
+    return pauseVM;
+  }
 }

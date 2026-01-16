@@ -45,4 +45,10 @@ export class VMController {
     const result = await this.vMService.startVM(Number(idVM));
     return res.status(STATUS_CODE.OK).json(result);
   }
+
+  async pauseVM(req: CustomRequest<unknown>, res: Response) {
+    const { idVM } = req.params;
+    const result = await this.vMService.pauseVM(Number(idVM));
+    return res.status(STATUS_CODE.OK).json(result);
+  }
 }

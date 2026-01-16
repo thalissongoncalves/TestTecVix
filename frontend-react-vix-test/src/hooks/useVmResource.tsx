@@ -339,6 +339,21 @@ export const useVmResource = () => {
     return response.data;
   };
 
+  const pauseVM = async (idVM: number) => {
+    const auth = await getAuth();
+    const response = await api.patch({
+      url: `/vm/${idVM}/pause`,
+      auth,
+    });
+
+    if (response.error) {
+      toast.error(response.message);
+      return null
+    }
+
+    return response.data;
+  };
+
   return {
     createVm,
     updateNameVm,
@@ -360,5 +375,6 @@ export const useVmResource = () => {
     monitoringVMStatus,
     updateVMStatus,
     startVM,
+    pauseVM,
   };
 };

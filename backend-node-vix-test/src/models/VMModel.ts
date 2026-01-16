@@ -103,4 +103,14 @@ export class VMModel {
       },
     });
   }
+
+  async pauseVM(idVM: number) {
+    return await prisma.vM.update({
+      where: { idVM },
+      data: {
+        status: "PAUSED",
+        updatedAt: new Date(),
+      },
+    });
+  }
 }

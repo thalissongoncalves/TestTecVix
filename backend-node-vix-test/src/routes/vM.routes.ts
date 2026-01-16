@@ -74,3 +74,12 @@ vMRoutes.patch(
     await vMController.startVM(req, res);
   },
 );
+
+vMRoutes.patch(
+  `${BASE_PATH}/:idVM/pause`,
+  authUser,
+  isManagerOrIsAdmin,
+  async (req, res) => {
+    await vMController.pauseVM(req, res);
+  },
+);
