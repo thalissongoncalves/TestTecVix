@@ -1,7 +1,12 @@
 export enum ENetworkType {
-  public = 1,
-  public_private = 2,
-  private = 3,
+  public = "public",
+  public_private = "public_private",
+  private = "private",
+}
+
+export enum ELocationType {
+  USA_MIAMI = "USA_MIAMI",
+  BRA_SAO_PAULO = "BRA_SAO_PAULO",
 }
 
 export interface IVMResource {
@@ -14,6 +19,7 @@ export interface IVMResource {
   pass: string;
   status?: string | null;
   networkType?: ENetworkType;
+  location?: ELocationType;
   vmLocalization?: { label: string | null; value: unknown } | null;
   oldVM?: {
     vmName: string;

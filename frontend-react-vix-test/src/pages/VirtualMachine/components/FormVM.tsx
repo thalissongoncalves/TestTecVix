@@ -54,6 +54,7 @@ export const FormVM = () => {
     localizationOptions,
     networkTypeOptions,
     isLoadingCreateVM,
+    osOptions,
   } = useVmResource();
 
   const {
@@ -98,15 +99,15 @@ export const FormVM = () => {
     if (!isValidPass) return;
 
     await createVm({
-      ...vm,
-      networkType: vmNetwork?.value,
-      vmName: vmName,
+      vmName,
+      pass: vmPassword,
+      location: vmLocalization!.value,
+      os: String(vmSO?.value),
       vCPU: vmvCpu,
       ram: vmMemory,
       disk: vmDisk,
-      hasBackup: hasBackup,
-      os: String(vmSO?.value) || "",
-      pass: vmPassword,
+      hasBackup,
+      networkType: vmNetwork?.value,
     });
   };
 
@@ -225,7 +226,12 @@ export const FormVM = () => {
             value={vmLocalization}
             onChange={setVmLocalization}
           />
-          <BTNISOsSection vmNameLabel={vmSO?.label} />
+          <DropDowText 
+            label={t("createVm.operationalSystem")}
+            data={osOptions}
+            value={vmSO}
+            onChange={setVmSO}
+          />
         </Stack>
         {/* Sliders */}
         <Stack

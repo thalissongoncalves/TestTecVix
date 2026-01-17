@@ -214,6 +214,22 @@
             "null"
           ]
         },
+        "pass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "USA_MIAMI",
+            "BRA_SAO_PAULO"
+          ]
+        },
         "vCPU": {
           "type": "integer"
         },
@@ -223,11 +239,19 @@
         "disk": {
           "type": "integer"
         },
-        "hasBackup": {
+        "networkType": {
           "type": [
-            "boolean",
+            "string",
             "null"
           ],
+          "enum": [
+            "public",
+            "public_private",
+            "private"
+          ]
+        },
+        "hasBackup": {
+          "type": "boolean",
           "default": false
         },
         "status": {

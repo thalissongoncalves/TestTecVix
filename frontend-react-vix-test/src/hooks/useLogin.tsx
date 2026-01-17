@@ -13,7 +13,7 @@ interface IUserLoginResponse {
     deletedAt: string | Date | null;
     email: string;
     idBrandMaster: number | null;
-    idUser: number;
+    idUser: string;
     isActive: boolean;
     profileImgUrl: null | string;
     role: "admin" | "manager" | "member";
@@ -48,11 +48,10 @@ export const useLogin = () => {
     }
 
     const response = await api.post<IUserLoginResponse>({
-      url: "/user/login",
+      url: "/auth/login",
       data: {
-        username: username || undefined,
+        email,
         password,
-        email: email || undefined,
       },
       tryRefetch: true,
     });
@@ -78,6 +77,7 @@ export const useLogin = () => {
       userPhoneNumber: response.data.user.userPhoneNumber,
     });
     setLoginTime(new Date());
+    navigate("/");
   };
 
   const goLogout = () => {

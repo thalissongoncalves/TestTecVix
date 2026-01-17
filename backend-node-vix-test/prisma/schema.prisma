@@ -16,6 +16,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ETaskLocation {
+  USA_MIAMI
+  BRA_SAO_PAULO
+}
+
 model brandMaster {
   idBrandMaster Int       @id @default(autoincrement())
   brandName     String?
@@ -54,10 +59,13 @@ model brandMaster {
 model vM {
   idVM          Int          @id @default(autoincrement())
   vmName        String?
+  pass          String?      // senha da VM (hash)
+  location      ETaskLocation?      // localização da VM
   vCPU          Int
   ram           Int
   disk          Int
-  hasBackup     Boolean?     @default(false)
+  networkType   EVMNetworkType?
+  hasBackup     Boolean      @default(false)
   idBrandMaster Int?
   status        EVMStatus?
   createdAt     DateTime?    @default(now()) @db.DateTime(0)
@@ -86,6 +94,12 @@ model user {
   brandMaster brandMaster? @relation(fields: [idBrandMaster], references: [idBrandMaster])
 
   @@index([idBrandMaster], map: "user_idBrandMaster_fkey")
+}
+
+enum EVMNetworkType {
+  public
+  public_private
+  private
 }
 
 enum EVMStatus {

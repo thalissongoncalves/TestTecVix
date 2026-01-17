@@ -14,12 +14,21 @@ import {
 import { Stack, Typography } from "@mui/material";
 import { useZTheme } from "../../../../stores/useZTheme";
 import { useTranslation } from "react-i18next";
-
 import { useZGlobalVar } from "../../../../stores/useZGlobalVar";
 import { IFormatData } from "../../../../types/socketType";
 
+const memoryMockData: IFormatData[] = [
+  { time: "10:00", value: 25 },
+  { time: "10:01", value: 32 },
+  { time: "10:02", value: 48 },
+  { time: "10:03", value: 55 },
+  { time: "10:04", value: 68 },
+  { time: "10:05", value: 72 },
+  { time: "10:06", value: 80 },
+]
+
 export const BottomGraphic = () => {
-  const [chartData] = useState<IFormatData[]>([]);
+  const [chartData] = useState<IFormatData[]>(memoryMockData);
   const { theme, mode } = useZTheme();
   const { t } = useTranslation();
 

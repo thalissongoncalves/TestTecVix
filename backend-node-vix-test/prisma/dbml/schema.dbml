@@ -40,10 +40,13 @@ Table brandMaster {
 Table vM {
   idVM Int [pk, increment]
   vmName String
+  pass String
+  location ETaskLocation
   vCPU Int [not null]
   ram Int [not null]
   disk Int [not null]
-  hasBackup Boolean [default: false]
+  networkType EVMNetworkType
+  hasBackup Boolean [not null, default: false]
   idBrandMaster Int
   status EVMStatus
   createdAt DateTime [default: `now()`]
@@ -67,6 +70,17 @@ Table user {
   updatedAt DateTime [default: `now()`]
   deletedAt DateTime
   brandMaster brandMaster
+}
+
+Enum ETaskLocation {
+  USA_MIAMI
+  BRA_SAO_PAULO
+}
+
+Enum EVMNetworkType {
+  public
+  public_private
+  private
 }
 
 Enum EVMStatus {

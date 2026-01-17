@@ -16,8 +16,8 @@ import {
 import { EOS } from "../stores/useZVMSugestion";
 
 enum ETaskLocation {
-  bre_barueri = "bre_barueri",
-  usa_miami = "usa_miami",
+  USA_MIAMI = "USA_MIAMI",
+  BRA_SAO_PAULO = "BRA_SAO_PAULO",
 }
 
 export const useVmResource = () => {
@@ -75,11 +75,11 @@ export const useVmResource = () => {
 
   const localizationOptions: { value: ETaskLocation; label: string }[] = [
     {
-      value: ETaskLocation.usa_miami,
+      value: ETaskLocation.USA_MIAMI,
       label: t("createVm.usaMiami"),
     },
     {
-      value: ETaskLocation.bre_barueri,
+      value: ETaskLocation.BRA_SAO_PAULO,
       label: t("createVm.brSaoPaulo"),
     },
   ];
@@ -96,6 +96,21 @@ export const useVmResource = () => {
     {
       value: ENetworkType.private,
       label: t("createVm.privateNetwork"),
+    },
+  ];
+
+  const osOptions = [
+    {
+      value: "ubuntu_22_04",
+      label: "Ubuntu 22.04",
+    },
+    {
+      value: "ubuntu_20_04",
+      label: "Ubuntu 20.04",
+    },
+    {
+      value: "debian_12",
+      label: "Debian 12",
     },
   ];
 
@@ -296,7 +311,7 @@ export const useVmResource = () => {
     networkTypeValue,
   }: {
     networkTypeLabel?: string;
-    networkTypeValue?: number;
+    networkTypeValue?: string;
   }): { value: ENetworkType; label: string } => {
     if (networkTypeLabel)
       return (
@@ -324,6 +339,36 @@ export const useVmResource = () => {
     return Boolean(response.data);
   };
 
+  const startVM = async (idVM: number) => {
+    const auth = await getAuth();
+    const response = await api.patch({
+      url: `/vm/${idVM}/start`,
+      auth,
+    });
+
+    if (response.error) {
+      toast.error(response.message);
+      return null;
+    }
+
+    return response.data;
+  };
+
+  const pauseVM = async (idVM: number) => {
+    const auth = await getAuth();
+    const response = await api.patch({
+      url: `/vm/${idVM}/pause`,
+      auth,
+    });
+
+    if (response.error) {
+      toast.error(response.message);
+      return null;
+    }
+
+    return response.data;
+  };
+
   return {
     createVm,
     updateNameVm,
@@ -344,5 +389,8 @@ export const useVmResource = () => {
     getOSDeletedLabel,
     monitoringVMStatus,
     updateVMStatus,
+    startVM,
+    pauseVM,
+    osOptions,
   };
 };

@@ -3,6 +3,7 @@ import { TVMCreate } from "../types/validations/VM/createVM";
 import { TVMUpdate } from "../types/validations/VM/updateVM";
 import { IListAllVM } from "../types/IListAll";
 import moment from "moment";
+import { ETaskLocation, EVMStatus } from "@prisma/client";
 
 export class VMModel {
   async getById(idVM: number) {
@@ -73,9 +74,31 @@ export class VMModel {
     return { totalCount, result: vms };
   }
 
-  async createNewVM(data: TVMCreate) {
-    return await prisma.vM.create({
-      data: { ...data },
+  async createNewVM(data: {
+    vmName: string;
+    location: ETaskLocation;
+    os: string;
+    vCPU: number;
+    ram: number;
+    disk: number;
+    hasBackup: boolean;
+    status: EVMStatus;
+    idBrandMaster: number;
+  }) {
+    return prisma.vM.create({
+      data,
+      select: {
+        idVM: true,
+        vmName: true,
+        location: true,
+        vCPU: true,
+        ram: true,
+        disk: true,
+        os: true,
+        hasBackup: true,
+        status: true,
+        idBrandMaster: true,
+      },
     });
   }
 
@@ -90,6 +113,26 @@ export class VMModel {
     return await prisma.vM.update({
       where: { idVM },
       data: { updatedAt: new Date(), deletedAt: new Date() },
+    });
+  }
+
+  async startVM(idVM: number) {
+    return await prisma.vM.update({
+      where: { idVM },
+      data: {
+        status: "RUNNING",
+        updatedAt: new Date(),
+      },
+    });
+  }
+
+  async pauseVM(idVM: number) {
+    return await prisma.vM.update({
+      where: { idVM },
+      data: {
+        status: "PAUSED",
+        updatedAt: new Date(),
+      },
     });
   }
 }
