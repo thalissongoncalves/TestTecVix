@@ -1,7 +1,7 @@
 ## 🔑 Credenciais de Teste
 
-Atualmente o sistema possui usuários de teste com o papel `member`.
+Atualmente o sistema possui usuários de teste com o papel `admin`.
 
-### Usuário Member
-- **Email:** thalisson3@gmail.com
-- **Senha:** thalisson3123
+### Usuário Admin
+- **Email:** thalissongdev@gmail.com
+- **Senha:** admin123
